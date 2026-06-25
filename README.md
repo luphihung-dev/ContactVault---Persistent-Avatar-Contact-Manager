@@ -1,4 +1,4 @@
-# ContactVault — Persistent Avatar Contact Manager
+# ContactVault - Persistent Avatar Contact Manager
 
 A native Android contact manager built with Kotlin, Room Database, RecyclerView, and predefined resource-based avatars.
 
@@ -7,17 +7,8 @@ A native Android contact manager built with Kotlin, Room Database, RecyclerView,
 ![Room Database](https://img.shields.io/badge/Room-Database-2563EB?style=flat-square)
 ![RecyclerView](https://img.shields.io/badge/RecyclerView-List%20UI-FCA311?style=flat-square)
 ![Material Components](https://img.shields.io/badge/Material-Components-14213D?style=flat-square)
-![Architecture](https://img.shields.io/badge/Architecture-MVVM--style-6B7280?style=flat-square)
+![Architecture](https://img.shields.io/badge/Architecture-MVVM-style-6B7280?style=flat-square)
 
-## Preview
-
-| Main Screen | Add Contact | Avatar Picker |
-| --- | --- | --- |
-| ![Main Screen](docs/screenshots/main-screen.png) | ![Add Contact](docs/screenshots/add-contact.png) | ![Avatar Picker](docs/screenshots/avatar-picker.png) |
-
-| Validation | Persistence |
-| --- | --- |
-| ![Validation](docs/screenshots/validation.png) | ![Persistence](docs/screenshots/persistence.png) |
 
 ## Project Overview
 
@@ -91,7 +82,7 @@ The project uses a lightweight MVVM-style architecture with clear separation bet
 | `ContactRepository.kt` | Separates persistence operations from the UI layer. |
 | `ContactViewModel.kt` | Exposes contact data and performs save/delete operations in `viewModelScope`. |
 | `MainActivity.kt` | Displays the contact list, empty state, add action, edit action, and delete confirmation. |
-| `AddEditContactActivity.kt` | Handles add/edit form logic, validation, saving, and avatar selection. |
+| `ContactEditorActivity.kt` | Handles contact form logic, validation, saving, and avatar selection. |
 | `ContactAdapter.kt` | Binds contact data to RecyclerView card items. |
 | `AvatarCatalog.kt` | Maintains available avatar options and maps avatar names to drawable resources. |
 | `AvatarAdapter.kt` | Displays avatar options in a grid picker. |
@@ -123,9 +114,9 @@ This keeps avatar handling simple, reliable, and aligned with Android resource m
 ## Project Structure
 
 ```text
-app/src/main/java/com/example/projectexercise3/
+app/src/main/java/com/luphihung/contactvault/
 |-- MainActivity.kt
-|-- AddEditContactActivity.kt
+|-- ContactEditorActivity.kt
 |-- data/
 |   |-- Contact.kt
 |   |-- ContactDao.kt
@@ -200,12 +191,6 @@ BUILD SUCCESSFUL
 - Add import/export support.
 - Refine dark mode styling.
 
-## Author
-
-- Student name: Lữ Phi Hùng
-- Student ID: GCS220588
-- Module: COMP1786 Mobile Application Design and Development
-- Exercise: Exercise 3 - Android Persistence
 
 ## License / Educational Purpose
 

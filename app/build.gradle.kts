@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.projectexercise3"
+    namespace = "com.luphihung.contactvault"
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.example.projectexercise3"
+        applicationId = "com.luphihung.contactvault"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

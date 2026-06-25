@@ -22,6 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ProjectExercise3"
+rootProject.name = "ContactVault"
 include(":app")
  

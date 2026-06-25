@@ -1,12 +1,12 @@
-package com.example.projectexercise3.ui
+package com.luphihung.contactvault.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.projectexercise3.data.Contact
-import com.example.projectexercise3.databinding.ItemContactBinding
+import com.luphihung.contactvault.data.Contact
+import com.luphihung.contactvault.databinding.ItemContactBinding
 
 class ContactAdapter(
     private val onContactClick: (Contact) -> Unit,
@@ -27,7 +27,7 @@ class ContactAdapter(
             avatarImage.setImageResource(AvatarCatalog.drawableFor(contact.avatarName))
             nameText.text = contact.name
             phoneText.text = contact.phoneNumber
-            noteText.text = contact.note.ifBlank { root.context.getString(com.example.projectexercise3.R.string.no_note) }
+            noteText.text = contact.note.ifBlank { root.context.getString(com.luphihung.contactvault.R.string.no_note) }
             root.setOnClickListener { onContactClick(contact) }
             deleteButton.setOnClickListener { onDeleteClick(contact) }
         }

@@ -1,4 +1,4 @@
-package com.example.projectexercise3.data
+package com.luphihung.contactvault.data
 
 import android.content.Context
 import androidx.room.Database

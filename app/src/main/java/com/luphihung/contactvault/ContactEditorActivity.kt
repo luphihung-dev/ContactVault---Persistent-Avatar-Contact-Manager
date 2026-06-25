@@ -1,4 +1,4 @@
-package com.example.projectexercise3
+package com.luphihung.contactvault
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -8,16 +8,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.example.projectexercise3.data.Contact
-import com.example.projectexercise3.databinding.ActivityAddEditContactBinding
-import com.example.projectexercise3.databinding.DialogAvatarPickerBinding
-import com.example.projectexercise3.ui.AvatarAdapter
-import com.example.projectexercise3.ui.AvatarCatalog
-import com.example.projectexercise3.ui.ContactViewModel
+import com.luphihung.contactvault.data.Contact
+import com.luphihung.contactvault.databinding.ActivityContactEditorBinding
+import com.luphihung.contactvault.databinding.DialogAvatarPickerBinding
+import com.luphihung.contactvault.ui.AvatarAdapter
+import com.luphihung.contactvault.ui.AvatarCatalog
+import com.luphihung.contactvault.ui.ContactViewModel
 import kotlinx.coroutines.launch
 
-class AddEditContactActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityAddEditContactBinding
+class ContactEditorActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityContactEditorBinding
     private val viewModel: ContactViewModel by viewModels()
     private var contactId: Long = 0L
     private var selectedAvatarName: String = AvatarCatalog.defaultName()
@@ -25,7 +25,7 @@ class AddEditContactActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddEditContactBinding.inflate(layoutInflater)
+        binding = ActivityContactEditorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         contactId = intent.getLongExtra(EXTRA_CONTACT_ID, 0L)
@@ -109,7 +109,7 @@ class AddEditContactActivity : AppCompatActivity() {
             .create()
 
         dialogBinding.avatarRecyclerView.apply {
-            layoutManager = GridLayoutManager(this@AddEditContactActivity, 3)
+            layoutManager = GridLayoutManager(this@ContactEditorActivity, 3)
             adapter = AvatarAdapter(selectedAvatarName) { option ->
                 selectedAvatarName = option.name
                 updateAvatarPreview()

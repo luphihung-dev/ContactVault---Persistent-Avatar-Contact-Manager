@@ -1,11 +1,11 @@
-package com.example.projectexercise3.ui
+package com.luphihung.contactvault.ui
 
 import androidx.annotation.DrawableRes
-import com.example.projectexercise3.R
+import com.luphihung.contactvault.R
 
 data class AvatarOption(
     val name: String,
-    @DrawableRes val drawableRes: Int,
+    @param:DrawableRes val drawableRes: Int,
     val label: String
 )
 

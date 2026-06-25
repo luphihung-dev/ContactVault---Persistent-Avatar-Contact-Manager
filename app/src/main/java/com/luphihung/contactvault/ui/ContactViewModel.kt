@@ -1,11 +1,11 @@
-package com.example.projectexercise3.ui
+package com.luphihung.contactvault.ui
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.projectexercise3.data.Contact
-import com.example.projectexercise3.data.ContactDatabase
-import com.example.projectexercise3.data.ContactRepository
+import com.luphihung.contactvault.data.Contact
+import com.luphihung.contactvault.data.ContactDatabase
+import com.luphihung.contactvault.data.ContactRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 

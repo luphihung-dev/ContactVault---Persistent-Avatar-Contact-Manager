@@ -1,4 +1,4 @@
-package com.example.projectexercise3
+package com.luphihung.contactvault
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,10 +10,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.projectexercise3.data.Contact
-import com.example.projectexercise3.databinding.ActivityMainBinding
-import com.example.projectexercise3.ui.ContactAdapter
-import com.example.projectexercise3.ui.ContactViewModel
+import com.luphihung.contactvault.data.Contact
+import com.luphihung.contactvault.databinding.ActivityMainBinding
+import com.luphihung.contactvault.ui.ContactAdapter
+import com.luphihung.contactvault.ui.ContactViewModel
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -51,8 +51,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openEditor(contactId: Long? = null) {
-        val intent = Intent(this, AddEditContactActivity::class.java)
-        contactId?.let { intent.putExtra(AddEditContactActivity.EXTRA_CONTACT_ID, it) }
+        val intent = Intent(this, ContactEditorActivity::class.java)
+        contactId?.let { intent.putExtra(ContactEditorActivity.EXTRA_CONTACT_ID, it) }
         startActivity(intent)
     }
 

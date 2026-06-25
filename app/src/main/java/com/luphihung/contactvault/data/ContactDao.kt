@@ -1,4 +1,4 @@
-package com.example.projectexercise3.data
+package com.luphihung.contactvault.data
 
 import androidx.room.Dao
 import androidx.room.Delete

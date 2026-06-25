@@ -1,9 +1,9 @@
-package com.example.projectexercise3.ui
+package com.luphihung.contactvault.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.projectexercise3.databinding.ItemAvatarBinding
+import com.luphihung.contactvault.databinding.ItemAvatarBinding
 
 class AvatarAdapter(
     private val selectedName: String,
