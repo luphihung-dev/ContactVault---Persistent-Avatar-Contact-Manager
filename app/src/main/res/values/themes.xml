@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.ProjectExercise3" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.ProjectExercise3" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/vault_navy</item>
         <item name="colorPrimaryVariant">@color/vault_blue_dark</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/vault_gold</item>
         <item name="colorOnSecondary">@color/vault_navy</item>
+        <item name="android:colorAccent">@color/vault_blue</item>
+        <item name="android:textColorPrimary">@color/vault_text</item>
+        <item name="android:textColorSecondary">@color/vault_text_muted</item>
+        <item name="android:editTextColor">@color/vault_text</item>
         <item name="android:fontFamily">sans</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:statusBarColor">@color/vault_navy</item>
