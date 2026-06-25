@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">ContactVault</string>
+    <string name="app_tagline">Persistent Avatar Contact Manager</string>
+    <string name="contacts_title">ContactVault</string>
+    <string name="contacts_subtitle">Persistent contacts with resource avatars</string>
+    <string name="add_contact">Add contact</string>
+    <string name="edit_contact">Edit contact</string>
+    <string name="save_contact">Save contact</string>
+    <string name="choose_avatar">Choose avatar</string>
+    <string name="change_avatar">Change avatar</string>
+    <string name="name_hint">Full name</string>
+    <string name="phone_hint">Phone number</string>
+    <string name="note_hint">Email address or short note</string>
+    <string name="empty_title">No contacts yet</string>
+    <string name="empty_message">Add your first saved contact and choose a profile avatar.</string>
+    <string name="empty_add_button">Create first contact</string>
+    <string name="delete_contact_title">Delete contact?</string>
+    <string name="delete_contact_message">Remove %1$s from ContactVault permanently?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_note">No email or note added</string>
+    <string name="error_name_required">Please enter a contact name.</string>
+    <string name="error_phone_required">Please enter a phone number.</string>
+    <string name="content_avatar">Contact avatar</string>
+    <string name="content_delete_contact">Delete contact</string>
+    <string name="content_add_contact">Add contact</string>
+</resources>
