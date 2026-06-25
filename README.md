@@ -1,122 +1,212 @@
 # ContactVault — Persistent Avatar Contact Manager
 
-ContactVault is a native Android contact manager built for COMP1786 Exercise 3. It stores contacts persistently with Room Database and lets users assign a predefined avatar drawable to each contact.
+A native Android contact manager built with Kotlin, Room Database, RecyclerView, and predefined resource-based avatars.
+
+![Android](https://img.shields.io/badge/Android-Native-3DDC84?style=flat-square&logo=android&logoColor=white)
+![Kotlin](https://img.shields.io/badge/Kotlin-2.2.10-7F52FF?style=flat-square&logo=kotlin&logoColor=white)
+![Room Database](https://img.shields.io/badge/Room-Database-2563EB?style=flat-square)
+![RecyclerView](https://img.shields.io/badge/RecyclerView-List%20UI-FCA311?style=flat-square)
+![Material Components](https://img.shields.io/badge/Material-Components-14213D?style=flat-square)
+![Architecture](https://img.shields.io/badge/Architecture-MVVM--style-6B7280?style=flat-square)
+
+## Preview
+
+| Main Screen | Add Contact | Avatar Picker |
+| --- | --- | --- |
+| ![Main Screen](docs/screenshots/main-screen.png) | ![Add Contact](docs/screenshots/add-contact.png) | ![Avatar Picker](docs/screenshots/avatar-picker.png) |
+
+| Validation | Persistence |
+| --- | --- |
+| ![Validation](docs/screenshots/validation.png) | ![Persistence](docs/screenshots/persistence.png) |
+
+## Project Overview
+
+ContactVault is a native Android contact manager that stores contact information locally and persistently. Users can create, update, and delete contacts, assign each contact a predefined avatar, and view all saved contacts in a clean RecyclerView-based interface.
+
+The app is built with Kotlin and follows a small MVVM-style structure using Room Database, Repository, ViewModel, Kotlin Coroutines, and Flow.
 
 ## COMP1786 Exercise 3 Context
 
-This project extends the Android Persistence / Lecture 5 ContactDatabase concept into a more complete Android app. The app demonstrates persistent storage, structured Android resources, RecyclerView presentation, input validation, and clean Kotlin architecture.
+This project was developed for `COMP1786 Mobile Application Design and Development`, Exercise 3: Android Persistence. It extends the Android Persistence / Lecture 5 `ContactDatabase` concept into a more complete contact management app with persistent storage, structured resources, input validation, and a polished Material UI.
 
-## Features
+## Core Features
 
-- Add, edit, and delete contacts.
-- Store contact name, phone number, email address or short note, and avatar resource name.
-- Persist data after the app is closed and reopened using Room.
-- Display contacts in a RecyclerView with avatar, name, phone number, and note.
-- Choose from multiple predefined drawable avatar resources.
-- Show an empty state when no contacts exist.
-- Validate required fields with user-friendly errors.
-- Use centralized Android resources for strings, colors, dimensions, themes, icons, and avatars.
-- Professional Material-styled UI suitable for coursework screenshots and logbook explanation.
+### Contact Management
 
-## Technologies Used
+- Add new contacts.
+- Edit existing contacts.
+- Delete contacts with confirmation.
+- Display all saved contacts in a RecyclerView.
+- Show each contact's avatar, name, phone number, and note/email.
+
+### Persistence
+
+- Store contact data locally using Room Database.
+- Persist saved contacts after closing and reopening the app.
+- Observe database changes using Kotlin Flow for automatic UI updates.
+
+### Avatar Selection
+
+- Choose avatars from predefined drawable resources.
+- Store avatar resource names in Room instead of storing image files.
+- Use `AvatarCatalog` to map stored avatar names to drawable resource IDs.
+
+### UI/UX
+
+- Material-styled interface with clear spacing and readable typography.
+- FloatingActionButton for adding contacts.
+- MaterialCardView contact rows.
+- MaterialButton actions.
+- Empty state for first-time use.
+- Organized Android resources for text, colors, dimensions, themes, drawables, and layouts.
+
+### Validation
+
+- Contact name is required.
+- Phone number is required.
+- Validation errors are shown through `TextInputLayout` error messages.
+
+## Tech Stack
 
 - Kotlin
-- Android Views and XML layouts
-- RecyclerView
+- Android XML Views
 - Room Database
 - Kotlin Coroutines and Flow
 - AndroidX Lifecycle ViewModel
+- RecyclerView and ListAdapter
 - ViewBinding
 - Material Components for Android
+- AppCompat
+- Gradle Kotlin DSL
 
-## App Architecture
+## Architecture Overview
 
-The project follows a small MVVM-style architecture:
+The project uses a lightweight MVVM-style architecture with clear separation between data, business logic, and UI layers.
 
-- `Contact`: Room entity representing one saved contact.
-- `ContactDao`: database queries and write operations.
-- `ContactDatabase`: Room database singleton.
-- `ContactRepository`: persistence abstraction used by the ViewModel.
-- `ContactViewModel`: exposes contacts as Flow and performs save/delete operations.
-- `MainActivity`: displays the contact list and empty state.
-- `AddEditContactActivity`: handles contact creation, editing, validation, and avatar selection.
-- `ContactAdapter`: RecyclerView adapter for contact cards.
-- `AvatarAdapter`: RecyclerView adapter for avatar grid selection.
+| Component | Responsibility |
+| --- | --- |
+| `Contact.kt` | Room entity representing a saved contact. |
+| `ContactDao.kt` | DAO for observing contacts and performing CRUD operations. |
+| `ContactDatabase.kt` | Room database singleton. |
+| `ContactRepository.kt` | Separates persistence operations from the UI layer. |
+| `ContactViewModel.kt` | Exposes contact data and performs save/delete operations in `viewModelScope`. |
+| `MainActivity.kt` | Displays the contact list, empty state, add action, edit action, and delete confirmation. |
+| `AddEditContactActivity.kt` | Handles add/edit form logic, validation, saving, and avatar selection. |
+| `ContactAdapter.kt` | Binds contact data to RecyclerView card items. |
+| `AvatarCatalog.kt` | Maintains available avatar options and maps avatar names to drawable resources. |
+| `AvatarAdapter.kt` | Displays avatar options in a grid picker. |
 
 ## How Persistence Works
 
-Room stores all contacts in a local SQLite database named `contact_vault_database`. The `contacts` table contains the contact id, name, phone number, note, and selected avatar resource name. The UI observes Room `Flow` streams, so changes are reflected automatically when contacts are inserted, updated, or deleted.
+Room creates a local SQLite database named `contact_vault_database`. Contact records are stored in the `contacts` table with the following fields:
+
+- `id`
+- `name`
+- `phoneNumber`
+- `note`
+- `avatarName`
+
+`ContactDao` exposes a `Flow<List<Contact>>`, which is collected by `MainActivity`. When a contact is inserted, updated, or deleted, Room emits the updated list and the RecyclerView refreshes automatically.
 
 ## How Avatar Selection Works
 
-Avatars are predefined Android drawable resources stored in `app/src/main/res/drawable`. The app stores the selected avatar's resource name, such as `avatar_blue`, in the Room database. When rendering the contact list or edit screen, `AvatarCatalog` maps that stored name back to the correct drawable resource identifier.
+Avatar images are maintained as drawable resources under `app/src/main/res/drawable`. The app does not store image files, file paths, or URIs in the database. Instead, it stores a resource name such as `avatar_blue`.
+
+`AvatarCatalog` maps each stored avatar name to the correct drawable resource ID, for example:
+
+```kotlin
+AvatarOption("avatar_blue", R.drawable.avatar_blue, "Blue")
+```
+
+This keeps avatar handling simple, reliable, and aligned with Android resource management.
 
 ## Project Structure
 
 ```text
 app/src/main/java/com/example/projectexercise3/
-├── MainActivity.kt
-├── AddEditContactActivity.kt
-├── data/
-│   ├── Contact.kt
-│   ├── ContactDao.kt
-│   ├── ContactDatabase.kt
-│   └── ContactRepository.kt
-└── ui/
-    ├── AvatarAdapter.kt
-    ├── AvatarCatalog.kt
-    ├── ContactAdapter.kt
-    └── ContactViewModel.kt
+|-- MainActivity.kt
+|-- AddEditContactActivity.kt
+|-- data/
+|   |-- Contact.kt
+|   |-- ContactDao.kt
+|   |-- ContactDatabase.kt
+|   `-- ContactRepository.kt
+`-- ui/
+    |-- AvatarAdapter.kt
+    |-- AvatarCatalog.kt
+    |-- ContactAdapter.kt
+    `-- ContactViewModel.kt
 
 app/src/main/res/
-├── drawable/        # icons, backgrounds, and avatar resources
-├── layout/          # activity, dialog, and RecyclerView item layouts
-└── values/          # strings, colors, dimens, and theme resources
+|-- drawable/        # avatars, icons, and visual backgrounds
+|-- layout/          # activity, dialog, and RecyclerView item layouts
+|-- values/          # strings, colors, dimensions, and theme resources
+`-- xml/             # backup and data extraction rules
 ```
 
 ## How to Run the Project
 
-1. Open the project in Android Studio.
-2. Let Gradle sync dependencies.
-3. Select an emulator or physical Android device.
-4. Run the `app` configuration.
-5. Add contacts and restart the app to verify persistence.
+### Android Studio
 
-You can also build from the command line:
+1. Open the project in Android Studio.
+2. Allow Gradle to sync dependencies.
+3. Select an Android emulator or physical device.
+4. Run the `app` configuration.
+5. Add contacts, close the app, and reopen it to verify persistence.
+
+### Command Line
+
+macOS/Linux:
 
 ```bash
 ./gradlew assembleDebug
 ```
 
-On Windows PowerShell:
+Windows PowerShell:
 
 ```powershell
 .\gradlew.bat assembleDebug
 ```
 
-## Screenshots
+## Testing / Build Verification
 
-Add screenshots for the final logbook submission:
+The project was checked using the following command:
 
-- Main contact list screen: `[screenshot placeholder]`
-- Empty state screen: `[screenshot placeholder]`
-- Add contact screen: `[screenshot placeholder]`
-- Avatar picker dialog: `[screenshot placeholder]`
-- Edit contact screen: `[screenshot placeholder]`
+```powershell
+.\gradlew.bat assembleDebug
+```
+
+Expected result:
+
+```text
+BUILD SUCCESSFUL
+```
+
+## Technical Highlights
+
+- Room Database provides persistent local SQLite storage.
+- Kotlin Flow keeps the RecyclerView automatically synchronized with database changes.
+- Repository and ViewModel separate database operations from Activity code.
+- RecyclerView `ListAdapter` and `DiffUtil` provide efficient list updates.
+- Material Components and XML resources create a consistent, polished interface.
+- Avatar selection stores resource names instead of image files, keeping persistence lightweight.
+- Required field validation is handled with `TextInputLayout` error states.
+
+## Future Improvements
+
+- Add contact search.
+- Add favourite contacts.
+- Add contact groups or categories.
+- Add import/export support.
+- Refine dark mode styling.
 
 ## Author
 
-- Student name: `[leave placeholder]`
-- Student ID: `GCS220588`
+- Student name: Lữ Phi Hùng
+- Student ID: GCS220588
+- Module: COMP1786 Mobile Application Design and Development
+- Exercise: Exercise 3 - Android Persistence
 
-## Notes for Logbook Submission
+## License / Educational Purpose
 
-- Explain how Room persists contact data in SQLite.
-- Include screenshots showing add, edit, delete, avatar selection, and app restart persistence.
-- Mention that avatar choices are maintained as Android drawable resources and stored by resource name.
-- Highlight input validation for required name and phone fields.
-- Reference the MVVM-style separation between data, repository, ViewModel, and UI layers.
-
-## GitHub Repository
-
-https://github.com/luphihung-dev/Project-exercise-3.git
+This project was developed for educational purposes as part of `COMP1786 Mobile Application Design and Development`.
